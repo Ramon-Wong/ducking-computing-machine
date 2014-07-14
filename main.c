@@ -1,13 +1,18 @@
 #include "functions.h"
 
-/*
- * stuf stuf stuf stuf stuf stuf 
-*/
+ 
 
+ 
+
+ 
 int main(int arg, char * argv[]){
 	
+	Init();
+	ShaderSetup();
 	
-	
-	
+	Main_Loop();
+	Shut_Down(0);
+  
 	return 0;
 }
+ 

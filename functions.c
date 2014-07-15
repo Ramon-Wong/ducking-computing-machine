@@ -58,7 +58,7 @@ void Main_Loop(void){
 	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// draw the figure
-		glUseProgram( GLSL_Program);
+
 		Draw();
 		// swap back and front buffers
 		glfwSwapBuffers();
@@ -69,11 +69,20 @@ void Main_Loop(void){
 GLfloat vertices[]	= {  1.0f, 1.0f, -5.0f,  -1.0f, 1.0f, -5.0f,  
 						-1.0f,-1.0f, -5.0f,   1.0f,-1.0f, -5.0f};	 
 GLubyte indices[]	= { 0, 1, 2,   2, 3, 0}; 
- 
+GLfloat		sTok = 0.0f;
+
 
 void Draw(void){
 	// reset view matrix
+	sTok += 0.05f;
+	
 	glLoadIdentity();
+	
+		glUseProgram( GLSL_Program);
+		
+		GLuint	uFormLocation		= glGetUniformLocation( GLSL_Program, "uForm");
+		glUniform1f( uFormLocation, sTok);
+
 	
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, vertices);

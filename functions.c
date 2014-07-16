@@ -1,9 +1,14 @@
 #include "functions.h"
-
+#include "Matrix.h"
 
 /*
  * stuf stuf stuf stuf stuf stuf 
 */
+
+GLfloat		Proj_Matrix[16];
+GLfloat		View_Matrix[16];
+GLfloat		ModelMatrix[16];
+
 
 
 void Init(void){
@@ -20,8 +25,10 @@ void Init(void){
 	// set the projection matrix to a normal frustum with a max depth of 50
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	float aspect_ratio = ((float)window_height) / window_width;
-	glFrustum(.5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 50);
+		float aspect_ratio = ((float)window_height) / window_width;
+		glFrustum(.5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 100);
+		_MFrustum( Proj_Matrix, .5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 50);	
+	
 	glMatrixMode(GL_MODELVIEW);
 	
 	
@@ -35,6 +42,9 @@ void Init(void){
 	glEnable(GL_CULL_FACE);    
 	glFrontFace(GL_CW);	
 	
+	MLoadIdentity(Proj_Matrix);
+	MLoadIdentity(View_Matrix);
+	MLoadIdentity(ModelMatrix);
 }
  
 

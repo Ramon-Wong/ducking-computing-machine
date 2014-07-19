@@ -27,7 +27,13 @@ void Init(void){
 	glLoadIdentity();
 		float aspect_ratio = ((float)window_height) / window_width;
 		glFrustum(.5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 100);
+		
+		// Onze eigen Projection Identity 
+		// GL_PROJECTION_MATRIX == Proj_Matrix
 		_MFrustum( Proj_Matrix, .5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 50);	
+		
+	
+	
 	
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -86,7 +92,11 @@ void Draw(void){
 	// reset view matrix
 	sTok += 0.05f;
 	
+	// must remove all Matrices
 	glLoadIdentity();
+	
+	//_LookAtM(View_Matrix, view, Pose, upVx);
+	
 	
 		glUseProgram( GLSL_Program);
 		

@@ -23,6 +23,6 @@ void        _Normalize(float *);
  
  
 
- 
+ //~ http://stackoverflow.com/questions/21980947/replacement-for-gl-position-gl-modelviewprojectionmatrix-gl-vertex
  
 #endif

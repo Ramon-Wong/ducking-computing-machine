@@ -1,10 +1,14 @@
-#version 130
+#version 120
 
 vec4 a				= gl_Vertex;
 vec4 b				= a;
 
 in vec3				vPosition;
 uniform float 		uForm;
+
+uniform mat4		uProj_Matrix;
+uniform mat4		uView_Matrix;
+uniform mat4		uModelMatrix;
 
 
 void main () {

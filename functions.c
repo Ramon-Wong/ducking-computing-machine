@@ -87,6 +87,7 @@ GLfloat vertices[]	= {  1.0f, 1.0f, -5.0f,  -1.0f, 1.0f, -5.0f,
 GLubyte indices[]	= { 0, 1, 2,   2, 3, 0}; 
 GLfloat		sTok = 0.0f;
 
+GLuint	uMatLoc[3];
 
 void Draw(void){
 	// reset view matrix
@@ -102,6 +103,18 @@ void Draw(void){
 		
 		GLuint	uFormLocation		= glGetUniformLocation( GLSL_Program, "uForm");
 		glUniform1f( uFormLocation, sTok);
+
+		uMatLoc[0]					= glGetUniformLocation( GLSL_Program, "uProj_Matrix");
+		uMatLoc[1]					= glGetUniformLocation( GLSL_Program, "uView_Matrix");
+		uMatLoc[2]					= glGetUniformLocation( GLSL_Program, "uModelMatrix");
+
+		glUniformMatrix4fv( uMatLoc[0], 1, GL_FALSE, Proj_Matrix);
+		glUniformMatrix4fv( uMatLoc[1], 1, GL_FALSE, View_Matrix);
+		glUniformMatrix4fv( uMatLoc[2], 1, GL_FALSE, ModelMatrix);
+
+	//Proj_Matrix
+	//View_Matrix
+	//ModelMatrix
 
 	
     glEnableClientState(GL_VERTEX_ARRAY);

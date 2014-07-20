@@ -1,4 +1,5 @@
-#version 120
+#version 130
+
 
 vec4 a				= gl_Vertex;
 vec4 b				= a;
@@ -8,7 +9,6 @@ uniform float 		uForm;
 
 uniform mat4		uProj_Matrix;
 uniform mat4		uView_Matrix;
-uniform mat4		uModelMatrix;
 
 
 void main () {
@@ -16,8 +16,8 @@ void main () {
 	float angle			= 27.0;
 	float rad_angle		= uForm * PI/180.0;
 								
-	b.x			= a.x*cos(rad_angle) - a.y*sin(rad_angle);
-	b.y			= a.y*cos(rad_angle) + a.x*sin(rad_angle);
-	
-	gl_Position = gl_ModelViewProjectionMatrix * b;
+	b.x					= a.x*cos(rad_angle) - a.y*sin(rad_angle);
+	b.y					= a.y*cos(rad_angle) + a.x*sin(rad_angle);
+			
+	gl_Position			= uView_Matrix * uProj_Matrix * b;
 }

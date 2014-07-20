@@ -20,6 +20,9 @@ extern GLuint		GLSL_Program;
 extern GLuint		GLSL_vertex;
 extern GLuint		GLSL_fragment;
 
+extern GLfloat		Proj_Matrix[16];
+extern GLfloat		View_Matrix[16];
+
 
 void				Init(void);
 void				Shut_Down(int return_code);

@@ -5,63 +5,9 @@
  * stuf stuf stuf stuf stuf stuf 
 */
 
-GLfloat		Proj_Matrix[16];
-GLfloat		View_Matrix[16];
-GLfloat		ModelMatrix[16];
 
 
 
-void Init(void){
-	const int window_width = 800,
-            window_height = 600;
- 
-	if (glfwInit() != GL_TRUE)
-	Shut_Down(1);
-	// 800 x 600, 16 bit color, no depth, alpha or stencil buffers, windowed
-	if(glfwOpenWindow(window_width, window_height, 5, 6, 5, 0, 0, 0, GLFW_WINDOW) != GL_TRUE)
-	Shut_Down(1);
-	glfwSetWindowTitle("The GLFW Window");
-
-	// set the projection matrix to a normal frustum with a max depth of 50
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-		float aspect_ratio = ((float)window_height) / window_width;
-		glFrustum(.5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 100);
-		
-		// Onze eigen Projection Identity 
-		// GL_PROJECTION_MATRIX == Proj_Matrix
-		_MFrustum( Proj_Matrix, .5, -.5, -.5 * aspect_ratio, .5 * aspect_ratio, 1, 50);	
-		
-	
-	
-	
-	glMatrixMode(GL_MODELVIEW);
-	
-	
-	printf("GL VENDOR:---  %s \n",		glGetString(GL_VENDOR));
-	printf("GL RENDERER:-  %s \n",		glGetString(GL_RENDERER));
-	printf("GL VERSION:--  %s \n",  	glGetString(GL_VERSION));
-	printf("GL SHADING:--  %s \n",		glGetString(GL_SHADING_LANGUAGE_VERSION));
- 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_CULL_FACE);    
-	glFrontFace(GL_CW);	
-	
-	MLoadIdentity(Proj_Matrix);
-	MLoadIdentity(View_Matrix);
-	MLoadIdentity(ModelMatrix);
-}
- 
-
-void Shut_Down(int return_code){
-	glDeleteProgram( GLSL_Program);
-	glDeleteShader( GLSL_vertex);
-	glDeleteShader( GLSL_fragment);		
-	
-	glfwTerminate();
-	exit(return_code);
-}
  
 
 void Main_Loop(void){
@@ -86,16 +32,12 @@ GLfloat vertices[]	= {  1.0f, 1.0f, -5.0f,  -1.0f, 1.0f, -5.0f,
 						-1.0f,-1.0f, -5.0f,   1.0f,-1.0f, -5.0f};	 
 GLubyte indices[]	= { 0, 1, 2,   2, 3, 0}; 
 GLfloat		sTok = 0.0f;
-
-GLuint	uMatLoc[3];
+GLuint		uMatLoc[2];
 
 void Draw(void){
 	// reset view matrix
 	sTok += 0.05f;
-	
-	// must remove all Matrices
-	glLoadIdentity();
-	
+		
 	//_LookAtM(View_Matrix, view, Pose, upVx);
 	
 	
@@ -104,18 +46,12 @@ void Draw(void){
 		GLuint	uFormLocation		= glGetUniformLocation( GLSL_Program, "uForm");
 		glUniform1f( uFormLocation, sTok);
 
-		uMatLoc[0]					= glGetUniformLocation( GLSL_Program, "uProj_Matrix");
-		uMatLoc[1]					= glGetUniformLocation( GLSL_Program, "uView_Matrix");
-		uMatLoc[2]					= glGetUniformLocation( GLSL_Program, "uModelMatrix");
-
-		glUniformMatrix4fv( uMatLoc[0], 1, GL_FALSE, Proj_Matrix);
-		glUniformMatrix4fv( uMatLoc[1], 1, GL_FALSE, View_Matrix);
-		glUniformMatrix4fv( uMatLoc[2], 1, GL_FALSE, ModelMatrix);
-
-	//Proj_Matrix
-	//View_Matrix
-	//ModelMatrix
-
+		uMatLoc[0]					= glGetUniformLocation( GLSL_Program, "uView_Matrix");
+		uMatLoc[1]					= glGetUniformLocation( GLSL_Program, "uProj_Matrix");
+		
+		glUniformMatrix4fv( uMatLoc[0], 1, GL_FALSE, View_Matrix);
+		glUniformMatrix4fv( uMatLoc[1], 1, GL_FALSE, Proj_Matrix);
+		
 	
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, vertices);

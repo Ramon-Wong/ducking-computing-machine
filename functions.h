@@ -34,4 +34,6 @@ void				print_shader_info_log(GLuint);
 void				print_program_info_log(GLuint);
 void				ShaderSetup(void);
 
+
+
 #endif

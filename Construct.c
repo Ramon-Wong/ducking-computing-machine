@@ -25,8 +25,8 @@ void Init(void){
 	MLoadIdentity(Proj_Matrix);
 	MLoadIdentity(View_Matrix);
 	
-		float aspect_ratio = ((float)window_height) / window_width;
-		_MFrustum( Proj_Matrix, 0.5f, -0.5f, -0.5f * aspect_ratio, 0.5f * aspect_ratio, 1.0f, 100.0f);	
+	float aspect_ratio = ((float)window_height) / window_width;
+	_MFrustum( Proj_Matrix, 0.5f, -0.5f, -0.5f * aspect_ratio, 0.5f * aspect_ratio, 1.0f, 100.0f);	
 
 	printf("GL VENDOR:---  %s \n",		glGetString(GL_VENDOR));
 	printf("GL RENDERER:-  %s \n",		glGetString(GL_RENDERER));
